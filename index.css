@@ -1,0 +1,131 @@
+#moviesList, #celebrity {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* 5개의 컬럼으로 구성 */
+    gap: 20px; /* 카드 사이의 간격 */
+    padding: 20px; /* 컨테이너의 패딩 */
+}
+
+.movie {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.movie img {
+    width: 100%;
+    height: auto;
+    border-bottom: 1px solid #ccc;
+}
+
+.movie h3 {
+    margin: 10px;
+}
+
+#tvShows {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* 더 유연한 그리드 설정 */
+  /* grid-template-columns: repeat(5, 1fr); 5개의 컬럼으로 구성 */
+  gap: 20px; /* 카드 사이의 간격 */
+  padding: 20px; /* 컨테이너의 패딩 */
+}
+
+.tvShow {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.tvShow img {
+  width: 100%;
+  height: auto;
+  border-bottom: 1px solid #ccc;
+}
+
+.tvShow h3 {
+  margin: 10px;
+}
+
+
+/* 화면 크기에 따른 반응형 레이아웃 */
+/* 화면 크기에 따른 반응형 레이아웃 */
+@media (max-width: 1200px) {
+  #moviesList {
+      grid-template-columns: repeat(4, 1fr); /* 화면이 1200px 이하일 때 4개의 아이템 표시 */
+  }
+}
+
+@media (max-width: 800px) {
+  #moviesList {
+      grid-template-columns: repeat(3, 1fr); /* 화면이 800px 이하일 때 3개의 아이템 표시 */
+  }
+}
+
+@media (max-width: 600px) {
+  #moviesList {
+      grid-template-columns: repeat(2, 1fr); /* 화면이 600px 이하일 때 2개의 아이템 표시 */
+  }
+}
+
+@media (max-width: 400px) {
+  #moviesList {
+      grid-template-columns: 1fr; /* 화면이 400px 이하일 때 1개의 아이템 표시 */
+  }
+}
+
+
+
+
+/* header */
+header {
+    display: flex;
+    align-items: center;
+    padding: 16px 5%;
+    font-size: 12px;
+  }
+  
+  header img {
+    height: 28px;
+  }
+  
+  header a {
+    text-decoration: none;
+    color: white;
+    margin-left: 16px;
+  }
+  
+  header button {
+    background: none;
+    border: none;
+    margin-right: 16px;
+  }
+  
+  nav {
+    display: flex;
+    align-items: center;
+  }
+  
+  nav ul {
+    list-style: none;
+  }
+  
+  nav li {
+    display: inline-block;
+  }
+  
+  nav + nav {
+    margin-left: auto;
+  }
+
+
+  body {
+    background-color: #141414;
+    font-family: sans-serif;
+    position: relative;
+    color: white;
+  }

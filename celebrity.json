@@ -1,0 +1,125 @@
+{
+    "actors": [
+      {
+        "name": "Timothée Chalamet",
+        "height": "5'10 (178cm)",
+        "birthday": "December 27, 1995",
+        "movies": ["Dune: Part Two", "Dune", "Wonka"]
+      },
+      {
+        "name": "Zendaya",
+        "height": "5'10 (178cm)",
+        "birthday": "September 1, 1996",
+        "movies": ["Dune", "Dune: Part Two"]
+      },
+      {
+        "name": "Henry Cavill",
+        "height": "6'1 (185cm)",
+        "birthday": "May 5, 1983",
+        "movies": ["Argylle"]
+      },
+      {
+        "name": "Robbie Amell",
+        "height": "5′ 11″ (180cm)",
+        "birthday": "April 21, 1988",
+        "movies": ["Code 8", "Code 8 Part II"]
+      },
+      {
+        "name": "Stephen Amell",
+        "height": "6'1 (185cm)",
+        "birthday": "May 8, 1981",
+        "movies": ["Code 8", "Code 8 Part II"]
+      },
+      {
+        "name": "Paul Dano",
+        "height": "6'1 (185cm)",
+        "birthday": "June 19, 1984",
+        "movies": ["Spaceman"]
+      },
+      {
+        "name": "Emma Watson",
+        "height": "5′ 5″ (165 cm)",
+        "birthday": "April 15, 1990",
+        "movies": ["Poor Things"]
+      },
+      {
+        "name": "Long Zhenting",
+        "height": "6'0 (183cm)",
+        "birthday": "March 18, 1996",
+        "movies": ["The Pig, the Snake and the Pigeon"]
+      },
+      {
+        "name": "Song Joong-ki",
+        "height": "5'10\" (178cm)",
+        "birthday": "September 19, 1985",
+        "movies": ["My Name Is Loh Kiwan"]
+      },
+      {
+        "name": "Adam Lambert",
+        "height": "6'1 (185cm)",
+        "birthday": "January 29, 1982",
+        "movies": ["Megamind vs. the Doom Syndicate"]
+      },
+      {
+        "name": "Cillian Murphy",
+        "height": "5′7 (1.72 m)",
+        "birthday": "May 25, 1976",
+        "movies": ["Oppenheimer"]
+      },
+      {
+        "name": "Jack Black",
+        "height": "5′6 (168 cm)",
+        "birthday": "August 28, 1969",
+        "movies": ["Kung Fu Panda 4"]
+      },
+      {
+        "name": "Aoi Yamada",
+        "height": "5'2 (157cm)",
+        "birthday": "June 24 2000",
+        "movies": ["Perfect Days"]
+      },
+      {
+        "name": "Sydney Sweeney",
+        "height": "5'3 (160cm)",
+        "birthday": "September 12, 1997",
+        "movies": ["Anyone But You"]
+      },
+      {
+        "name": "Rachel McAdams",
+        "height": "5′4 (163 cm)",
+        "birthday": "November 17, 1978",
+        "movies": ["Mean Girls"]
+      },
+      {
+        "name": "Sandra Wheeler",
+        "height": "5'8 (173cm)",
+        "birthday": "April 30, 1978",
+        "movies": ["Anatomy of a Fall", "The Zone of Interest"]
+      },
+      {
+        "name": "Divine Joy",
+        "height": "5′4 (163 cm)",
+        "birthday": "May 21, 1986",
+        "movies": ["The Holdovers"]
+      },
+      {
+        "name": "Jason Statham",
+        "height": "5'10 (178cm)",
+        "birthday": "July 26, 1967",
+        "movies": ["The Beekeeper"]
+      },
+      {
+        "name": "Josh Hutcherson",
+        "height": "5'5 (165cm)",
+        "birthday": "October 12, 1992",
+        "movies": ["The Beekeeper"]
+      },
+      {
+        "name": "Mark Ruffalo",
+        "height": "5'8 (173cm)",
+        "birthday": "November 22, 1967",
+        "movies": ["Poor Things"]
+      }
+    ]
+  }
+  
