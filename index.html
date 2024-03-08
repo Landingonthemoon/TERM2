@@ -1,43 +1,65 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>KIMFLIX</title>
-    <link rel="stylesheet" href="index.css">
-</head>
-<body>
+    <link rel="stylesheet" href="index.css" />
+  </head>
+  <body>
     <header>
-        <img src="https://www.freepnglogos.com/uploads/netflix-logo-0.png" alt="Netflix Logo" class="logo">
-        <nav>
-            <ul>
-                <li><a href="#/" onclick="navigateTo('/');">Home</a></li>
-                <li><a href="#/movies" onclick="navigateTo('/movies');">Movies</a></li>
-                <li><a href="#/celebrity" onclick="navigateTo('/celebrity');">Celebrity</a></li>
-            </ul>
-        </nav>
+      <!-- Logo source: https://www.freepnglogos.com/uploads/netflix-logo-0.png -->
+      <img
+        src="https://www.freepnglogos.com/uploads/netflix-logo-0.png" 
+        alt="Netflix Logo"
+        class="logo"
+      />
+      <nav>
+        <ul>
+          <li><a href="#/" onclick="navigateTo('/');">Home</a></li>
+          <li>
+            <a href="#/movies" onclick="navigateTo('/movies');">Movies</a>
+          </li>
+          <li>
+            <a href="#/celebrity" onclick="navigateTo('/celebrity');"
+              >Celebrity</a
+            >
+          </li>
+        </ul>
+      </nav>
+      <div id="searchContainer">
+        <input type="search" id="searchInput" placeholder="Search movies...">
+        <button id="searchButton">Search</button>
+      </div>   
     </header>
 
-<h1>Trending Movies</h1>
+    <div id="searchResults"></div>
+    <div id="movieDetails"></div>
+
+    <h1>Trending Movies</h1>
     <div id="moviesList"></div>
 
-
-
-    <h1>Trending Celebrity</h1>
-    <div id="celebrity"></div>
-
-<h3>Add New Movies</h3>
-    <div>
-    <form id="movieForm">
-        <input type="text" id="movieTitle" name = "title" placeholder="Title">
-        <input type="text" id="movieOverview" name="overview" placeholder="Overview">
-        <input type ="file" id="movieimage" name="movieimage" placeholder = "Imagie">
-        <button type="submit">Submit</button>
-    </form>
+    <div id="actor">
+      <h2>Actor/Actress</h2>
+      <div id="celebrity"></div>
     </div>
 
+    <div id="formContainer">
+      <h3 id="formHeading">Add New Movies</h3>
+      <form id="movieForm">
+        <input type="text" id="movieTitle" name="title" placeholder="Title" />
+        <input
+          type="text"
+          id="movieOverview"
+          name="overview"
+          placeholder="Overview"
+        />
+        <input type="file" id="movieimage" name="movieimage" />
+        <button type="submit">Submit</button>
+      </form>
+    </div>
 
-
-<script src="index.js"></script>
-</body>
+    <script src="index.js"></script>
+  </body>
 </html>
+
