@@ -7,10 +7,23 @@ const multer = require('multer'); // 사진 업로드 할때 쓰임
 const uploadsDir = path.join(__dirname, 'uploads');
 const moviesFilePath = path.join(__dirname, 'movie.json');
 
+// multer 설정 부분이 이미 잘 설정되어 있습니다.
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'uploads/'); // 파일이 저장될 경로
+  },
+  filename: function (req, file, cb) {
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+    cb(null, file.fieldname + '-' + uniqueSuffix + path.extname(file.originalname));
+  }
+});
+
+// // multer 설정
+const upload = multer({ storage });
 
 // 영화 검색
 app.get('/api/movies/search', (req, res) => {
-  console.log("hello world")
+  console.log('hello world');
   const { title } = req.query;
   console.log(`Searching for title: ${title}`);
   if (!title) {
@@ -24,9 +37,9 @@ app.get('/api/movies/search', (req, res) => {
     }
 
     const parsedData = JSON.parse(data);
-    console.log("Parsed data:", parsedData); // Log to see the structure
+    console.log('Parsed data:', parsedData); // Log to see the structure
     const movies = parsedData.results;
-    console.log("Movies array:", movies); // Log to see if movies are correctly parsed
+    console.log('Movies array:', movies); // Log to see if movies are correctly parsed
 
     const movie = movies.find(movie => movie.title.toLowerCase() === decodeURIComponent(title).toLowerCase());
       if (movie) {
@@ -44,20 +57,6 @@ app.get('/api/movies/search', (req, res) => {
 });
 
 app.use(cors());
-
-// 파일을 저장할 디렉토리 설정 -> mutler 설저
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, 'uploads/'); // 파일이 저장될 경로
-  },
-  filename: function (req, file, cb) {
-    cb(null, file.fieldname + '-' + Date.now());
-  }
-});
-
-// multer 설정
-const upload = multer({ storage });
-// const port = 8090;
 
 // 정적 파일 제공을 위해 client 디렉토리를 사용
 app.use(express.static('client'));
@@ -139,8 +138,6 @@ app.post('/movieForm', upload.single('movieimage'), (req, res) => {
   });
 });
 
-
-
 // 영화 detail
 // 영화 상세 정보를 제공하는 API 엔드포인트 추가
 app.get('/api/movies/:id', (req, res) => {
@@ -185,12 +182,11 @@ app.post('/api/movies', upload.single('movieImage'), (req, res) => {
   });
 });
 
-
-
 // Start the server
 app.listen(8090, () => {
   console.log('Server running at http://127.0.0.1:8090/');
 });
+
 
 
 
