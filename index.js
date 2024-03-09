@@ -351,3 +351,4 @@ function clearOtherSectionsExceptSearchResults() {
   document.getElementById('moviesList').innerHTML = '';
   document.getElementById('celebrity').innerHTML = '';
 }
+
