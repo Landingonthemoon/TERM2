@@ -97,6 +97,10 @@ app.get('/api/uploads', (req, res) => {
   });
 });
 
+
+
+app.use('/uploads', express.static('uploads'));
+
 // 새로운 영화 추가
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -186,7 +190,6 @@ app.post('/api/movies', upload.single('movieImage'), (req, res) => {
 app.listen(8090, () => {
   console.log('Server running at http://127.0.0.1:8090/');
 });
-
 
 
 
