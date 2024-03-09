@@ -33,11 +33,12 @@
       </div>   
     </header>
 
-    <div id="searchResults"></div>
     <div id="movieDetails"></div>
 
     <h1>Trending Movies</h1>
     <div id="moviesList"></div>
+
+    <div id="searchResults"></div>
 
     <div id="actor">
       <h2>Actor/Actress</h2>
@@ -46,7 +47,7 @@
 
     <div id="formContainer">
       <h3 id="formHeading">Add New Movies</h3>
-      <form id="movieForm">
+      <form id="movieForm" enctype="multipart/form-data">
         <input type="text" id="movieTitle" name="title" placeholder="Title" />
         <input
           type="text"
@@ -62,4 +63,3 @@
     <script src="index.js"></script>
   </body>
 </html>
-
