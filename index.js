@@ -106,18 +106,19 @@ function fetchMovieDetails (movieId) {
 }
 
 // 특정 영화 클릭시 이동하게 해주는코드
-function navigateTo (hash) {
-  const path = hash.substring(1) // hash에서 '#' 제거
-  history.pushState(null, '', hash) // 실제 URL 변경은 필요하지 않으나, 상태 관리를 위해 사용할 수 있음
+function navigateTo(hash) {
+  const path = hash.substring(1); // hash에서 '#' 제거
+  history.pushState(null, '', hash); // 실제 URL 변경은 필요하지 않으나, 상태 관리를 위해 사용할 수 있음
 
-  // 검색 결과를 클리어합니다.
+  // 모든 섹션의 내용을 초기화합니다.
+  document.getElementById('moviesList').innerHTML = '';
+  document.getElementById('celebrity').innerHTML = '';
   document.getElementById('searchResults').innerHTML = '';
+  document.getElementById('actor').style.display = ''; // 'Actor/Actress' 섹션을 다시 표시합니다.
 
-  // 영화 상세 페이지 로직을 추가하기 위한 경로 체크
   if (path.startsWith('/movies/') && path.split('/').length === 3) {
-    const movieId = path.split('/')[2]
-    fetchMovieDetails(movieId)
-    document.getElementById('celebrity').innerHTML = '' // 연예인 정보 숨기기
+      const movieId = path.split('/')[2];
+      fetchMovieDetails(movieId);
   } else {
     switch (path) {
       case '/':
@@ -298,13 +299,20 @@ async function performSearch() {
 
 function displayMovieDetails(movie) {
   const detailsContainer = document.getElementById('searchResults');
+  const actorSection = document.getElementById('actor');
+  actorSection.style.display = 'none';
+  
   if (movie) {
     // 영화 상세 정보 HTML 생성
     let detailsHtml = `
-      <div id="MOVIESEARCH">
-          <h3>${movie.title}</h3>
-          <img src="${movie.poster}" alt="Poster of ${movie.title}">
-          <p>${movie.overview}</p>
+      <div id="SEARCHMOVIE" style="display: flex;>
+        <span style="flex: 1;">
+          <img id="searchimage" src="${movie.poster}" alt="Poster of ${movie.title}" style="width: 100%; max-width: 300px; height: auto;">
+        </span>
+        <span style="flex: 2; padding-left: 20px;">
+          <h3 id = "searchtitle">${movie.title}</h3>
+          <p id= "searchoverview">${movie.overview}</p>
+        </span>
       </div>`;
 
     // 연관된 연예인 정보 표시
@@ -315,13 +323,18 @@ function displayMovieDetails(movie) {
     // 연예인 정보가 있다면, HTML에 추가
     if (relatedCelebrities.length > 0) {
       const celebritiesHtml = relatedCelebrities.map(actor => `
-        <span class="actor">
+        <div class="actor-card">
             <h3>${actor.name}</h3>
             <p>Height: ${actor.height}</p>
             <p>Birthday: ${actor.birthday}</p>
             <p>Movies: ${actor.movies.join(', ')}</p>
-        </span>`).join('');
+        </div>`).join('');
 
+        const celebritiesContainerHtml = `
+          <div class="celebrities-container">
+            ${celebritiesHtml}
+          </div>
+        `;
       // 영화 상세 정보에 연예인 정보를 추가
       detailsHtml += `<div class="related-celebrities">${celebritiesHtml}</div>`;
     }
