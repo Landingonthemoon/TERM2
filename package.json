@@ -13,9 +13,14 @@
     "eslint-config-standard": "^17.1.0",
     "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-n": "^16.6.2",
-    "eslint-plugin-promise": "^6.1.1"
+    "eslint-plugin-promise": "^6.1.1",
+    "jest": "^29.7.0",
+    "prettier": "^3.2.5",
+    "supertest": "^6.3.4"
   },
   "scripts": {
-    "pretest": "eslint ."
+    "pretest": "eslint server.js",
+    "test": "jest"
   }
 }
+
