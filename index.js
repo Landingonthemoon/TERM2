@@ -75,12 +75,16 @@ function fetchMovieDetails (movieId) {
     .then((response) => response.json())
     .then((movieData) => {
       // 영화 상세 정보 표시
-      const moviesList = document.getElementById('moviesList')
+      const moviesList = document.getElementById('searchResults')
       moviesList.innerHTML = `
-            <div class="movie-details">
+            <div id="DETAILMOVIE" class="movie-details">
+              <div class="column-left">
                 <h3>${movieData.title}</h3>
                 <img src="${movieData.poster}" alt="${movieData.title} Poster">
+              </div>
+              <div class="column-right">  
                 <p>${movieData.overview}</p>
+              </div>  
             </div>
           `
 
@@ -106,19 +110,19 @@ function fetchMovieDetails (movieId) {
 }
 
 // 특정 영화 클릭시 이동하게 해주는코드
-function navigateTo(hash) {
-  const path = hash.substring(1); // hash에서 '#' 제거
-  history.pushState(null, '', hash); // 실제 URL 변경은 필요하지 않으나, 상태 관리를 위해 사용할 수 있음
+function navigateTo (hash) {
+  const path = hash.substring(1) // hash에서 '#' 제거
+  history.pushState(null, '', hash) // 실제 URL 변경은 필요하지 않으나, 상태 관리를 위해 사용할 수 있음
 
   // 모든 섹션의 내용을 초기화합니다.
-  document.getElementById('moviesList').innerHTML = '';
-  document.getElementById('celebrity').innerHTML = '';
-  document.getElementById('searchResults').innerHTML = '';
-  document.getElementById('actor').style.display = ''; // 'Actor/Actress' 섹션을 다시 표시합니다.
+  document.getElementById('moviesList').innerHTML = ''
+  document.getElementById('celebrity').innerHTML = ''
+  document.getElementById('searchResults').innerHTML = ''
+  document.getElementById('actor').style.display = '' // 'Actor/Actress' 섹션을 다시 표시합니다.
 
   if (path.startsWith('/movies/') && path.split('/').length === 3) {
-      const movieId = path.split('/')[2];
-      fetchMovieDetails(movieId);
+    const movieId = path.split('/')[2]
+    fetchMovieDetails(movieId)
   } else {
     switch (path) {
       case '/':
@@ -155,8 +159,8 @@ function fetchMovies () {
         .map(
           (movie) => `
           <div class="movie" onclick="location.hash='/movies/${movie.id}'">
-              <h3>${movie.title}</h3>
               <img src="${movie.poster}" alt="${movie.title} Poster">
+              <h3>${movie.title}</h3>
           </div>
           `
         )
@@ -226,82 +230,60 @@ document.getElementById('movieForm').addEventListener('submit', function (e) {
     })
 })
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//영화검색
+// 영화검색
 document.addEventListener('DOMContentLoaded', () => {
   // 초기 로딩 시 'Home' 데이터를 자동으로 불러옵니다.
-  navigateTo(window.location.hash || '#/');
+  navigateTo(window.location.hash || '#/')
 
   // 영화 검색 버튼 클릭 이벤트
-  document.getElementById('searchButton').addEventListener('click', performSearch);
+  document.getElementById('searchButton').addEventListener('click', performSearch)
 
   // 영화 검색 입력 필드에서 Enter 키 이벤트
-  document.getElementById('searchInput').addEventListener('keypress', function(event) {
+  document.getElementById('searchInput').addEventListener('keypress', function (event) {
     if (event.key === 'Enter') {
-      event.preventDefault();
-      performSearch();
+      event.preventDefault()
+      performSearch()
     }
-  });
+  })
 
   // URL의 hash가 변경될 때마다 새로운 섹션으로 이동 처리
-  window.addEventListener('hashchange', () => navigateTo(window.location.hash));
-});
+  window.addEventListener('hashchange', () => navigateTo(window.location.hash))
+})
 
-async function performSearch() {
-  console.log('Performing search...');
-  const searchQuery = document.getElementById('searchInput').value.trim();
+async function performSearch () {
+  console.log('Performing search...')
+  const searchQuery = document.getElementById('searchInput').value.trim()
   if (!searchQuery) {
-    alert('Please enter a search query.');
-    return;
+    alert('Please enter a search query.')
+    return
   }
-  
+
   try {
-    const response = await fetch(`/api/movies/search?title=${encodeURIComponent(searchQuery)}`);
-    if (!response.ok) throw new Error('Failed to fetch');
-    
-    const movie = await response.json();
+    const response = await fetch(`/api/movies/search?title=${encodeURIComponent(searchQuery)}`)
+    if (!response.ok) throw new Error('Failed to fetch')
+
+    const movie = await response.json()
     if (!movie || Object.keys(movie).length === 0) {
       // 영화 정보가 없는 경우, alert 메시지를 표시합니다.
-      alert('Your movie cannot be found. Please try searching again.');
-      return; // 여기서 함수 실행을 중단합니다.
+      alert('Your movie cannot be found. Please try searching again.')
+      return // 여기서 함수 실행을 중단합니다.
     }
-    displayMovieDetails(movie);
+    displayMovieDetails(movie)
 
     // 검색 성공 시 다른 섹션 내용 클리어
-    clearOtherSectionsExceptSearchResults();
+    clearOtherSectionsExceptSearchResults()
   } catch (error) {
-    console.error('Error:', error);
+    console.error('Error:', error)
     // 네트워크 오류나 다른 예외 상황에 대한 처리입니다.
-    alert('Your movie cannot be found. Please try searching again.');
+    alert('Your movie cannot be found. Please try searching again.')
   }
 }
 
-function displayMovieDetails(movie) {
-  const detailsContainer = document.getElementById('searchResults');
-  const actorSection = document.getElementById('actor');
-  actorSection.style.display = 'none';
-  
+function displayMovieDetails (movie) {
+  const detailsContainer = document.getElementById('searchResults')
+  const actorSection = document.getElementById('actor')
+  actorSection.style.display = 'none'
+
   if (movie) {
     // 영화 상세 정보 HTML 생성
     let detailsHtml = `
@@ -313,42 +295,36 @@ function displayMovieDetails(movie) {
           <h3 id = "searchtitle">${movie.title}</h3>
           <p id= "searchoverview">${movie.overview}</p>
         </span>
-      </div>`;
+      </div>`
 
     // 연관된 연예인 정보 표시
     const relatedCelebrities = globalCelebrities.filter(actor =>
       actor.movies.includes(movie.title)
-    );
+    )
 
     // 연예인 정보가 있다면, HTML에 추가
     if (relatedCelebrities.length > 0) {
       const celebritiesHtml = relatedCelebrities.map(actor => `
         <div class="actor-card">
+            <h2>Actor/Actress</h2>
             <h3>${actor.name}</h3>
             <p>Height: ${actor.height}</p>
             <p>Birthday: ${actor.birthday}</p>
             <p>Movies: ${actor.movies.join(', ')}</p>
-        </div>`).join('');
+        </div>`).join('')
 
-        const celebritiesContainerHtml = `
-          <div class="celebrities-container">
-            ${celebritiesHtml}
-          </div>
-        `;
       // 영화 상세 정보에 연예인 정보를 추가
-      detailsHtml += `<div class="related-celebrities">${celebritiesHtml}</div>`;
+      detailsHtml += `<div class="related-celebrities">${celebritiesHtml}</div>`
     }
 
-    detailsContainer.innerHTML = detailsHtml;
+    detailsContainer.innerHTML = detailsHtml
   } else {
-    detailsContainer.innerHTML = '<p>Movie not found.</p>';
+    detailsContainer.innerHTML = '<p>Movie not found.</p>'
   }
 }
 
-
 // 다른 섹션 내용 클리어 함수, 검색 결과 섹션 제외
-function clearOtherSectionsExceptSearchResults() {
-  document.getElementById('moviesList').innerHTML = '';
-  document.getElementById('celebrity').innerHTML = '';
+function clearOtherSectionsExceptSearchResults () {
+  document.getElementById('moviesList').innerHTML = ''
+  document.getElementById('celebrity').innerHTML = ''
 }
-
