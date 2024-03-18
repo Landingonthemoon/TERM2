@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const app = express();
 const cors = require('cors');
-const multer = require('multer'); // 사진 업로드 할때 쓰임
+const multer = require('multer'); // Upload a poster
 const uploadsDir = path.join(__dirname, 'uploads');
 const moviesFilePath = path.join(__dirname, 'movie.json');
 
@@ -21,39 +21,32 @@ const storage = multer.diskStorage({
 // // multer 설정
 const upload = multer({ storage });
 
-// 영화 검색
+// Search Movies
 app.get('/api/movies/search', (req, res) => {
-  console.log('hello world');
   const { title } = req.query;
-  console.log(`Searching for title: ${title}`);
   if (!title) {
     return res.status(400).send('Title is required');
   }
 
   fs.readFile(path.join(__dirname, 'movie.json'), 'utf8', (err, data) => {
     if (err) {
-        console.error(err);
-        return res.status(500).send('Error reading movie data');
+      console.error(err);
+      return res.status(500).send('Error reading movie data');
     }
 
     const parsedData = JSON.parse(data);
-    console.log('Parsed data:', parsedData); // Log to see the structure
-    const movies = parsedData.results;
-    console.log('Movies array:', movies); // Log to see if movies are correctly parsed
-
-    const movie = movies.find(movie => movie.title.toLowerCase() === decodeURIComponent(title).toLowerCase());
-      if (movie) {
-        console.log(`Found movie: ${movie.title}`);
-      } else {
-        console.log(`No movie found matching the title: ${decodeURIComponent(title)}`);
-      }
+    const movie = parsedData.results.find(movie => movie.title.toLowerCase() === decodeURIComponent(title).toLowerCase());
 
     if (movie) {
-        res.json(movie);
+      // 영화를 찾은 경우, 로그를 출력하고 200 상태 코드와 함께 영화 데이터를 JSON 형태로 반환
+      console.log(`Found movie: ${movie.title}`);
+      res.status(200).json(movie);
     } else {
-        res.status(404).send('Movie not found');
+      // 영화를 찾지 못한 경우, 로그를 출력하고 404 상태 코드와 메시지를 반환
+      console.log(`No movie found matching the title: ${decodeURIComponent(title)}`);
+      res.status(404).send('Movie not found');
     }
-});
+  });
 });
 
 app.use(cors());
@@ -75,7 +68,7 @@ app.get('/api/movies', (req, res) => {
 app.get('/api/celebrity', (req, res) => {
   fs.readFile(path.join(__dirname, 'celebrity.json'), 'utf8', (err, data) => {
     if (err) {
-      return res.status(500).send('Error reading celebrity data.');
+      return res.status(500).type('text/plain').send('Error reading celebrity data.');
     }
     res.json(JSON.parse(data));
   });
@@ -96,8 +89,6 @@ app.get('/api/uploads', (req, res) => {
     res.json(files);
   });
 });
-
-
 
 app.use('/uploads', express.static('uploads'));
 
@@ -142,7 +133,7 @@ app.post('/movieForm', upload.single('movieimage'), (req, res) => {
   });
 });
 
-// 영화 detail
+// movie detail
 // 영화 상세 정보를 제공하는 API 엔드포인트 추가
 app.get('/api/movies/:id', (req, res) => {
   fs.readFile(path.join(__dirname, 'movie.json'), 'utf8', (err, data) => {
@@ -160,11 +151,11 @@ app.get('/api/movies/:id', (req, res) => {
   });
 });
 
-// 새 영화 추가 - 비동기 업데이트
+// Add new movie - asynchoronous updates
 app.post('/api/movies', upload.single('movieImage'), (req, res) => {
   fs.readFile(moviesFilePath, 'utf8', (err, data) => {
     if (err) {
-      res.status(500).send('서버에서 영화 데이터를 읽는 중 오류가 발생했습니다.');
+      res.status(500).send('An error occurred while reading movie data from the server.');
       return;
     }
     const moviesData = JSON.parse(data);
@@ -178,10 +169,10 @@ app.post('/api/movies', upload.single('movieImage'), (req, res) => {
 
     fs.writeFile(moviesFilePath, JSON.stringify(moviesData, null, 2), 'utf8', err => {
       if (err) {
-        res.status(500).send('새 영화 데이터를 저장하는 중 오류가 발생했습니다.');
+        res.status(500).send('An error occurred while saving the new movie data.');
         return;
       }
-      res.status(201).send('새 영화가 성공적으로 추가되었습니다.');
+      res.status(201).send('The new movie was added successfully.');
     });
   });
 });
@@ -191,8 +182,7 @@ app.listen(8090, () => {
   console.log('Server running at http://127.0.0.1:8090/');
 });
 
-
-
+module.exports = app;
 
 
 
